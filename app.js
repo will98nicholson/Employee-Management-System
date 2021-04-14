@@ -3,6 +3,9 @@ const db = require('./db/connection');
 const Department = require('./db/departmentcontroller');
 const Role = require('./db/rolecontroller');
 const Employee = require('./db/employeecontroller');
+db.Department = new Department();
+db.Employee = new Employee();
+db.Role = new Role();
 const questions = [{
     type: 'list',
     name: 'choice',
@@ -13,7 +16,22 @@ async function start() {
     try {
         const answers = await prompt(questions)
         console.log(answers);
-        switch (true) {
+        switch (answers.choice) {
+            case 'show all employees':
+                const results = await db.Employee.getAllEmployees()
+                start();
+                break
+            case 'show all departments':
+                const results = await db.Department.getAllDepts()
+                console.table(results)
+                start();
+                break
+            case 'show all roles':
+                const results = await db.Role.getAllRoles();
+                start();
+
+            default:
+            //end app
 
         }
     } catch (err) {
@@ -21,8 +39,8 @@ async function start() {
     }
 }
 
-connection.connect((err) => {
+db.connect((err) => {
     if (err) throw err;
-    console.log(`connected as id ${connection.threadId}`);
+    console.log(`connected as id ${db.threadId}`);
     start();
 });

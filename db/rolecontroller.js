@@ -3,7 +3,7 @@ class Role {
     constructor() {
         this.connection = conn;
     }
-    getAllDepts() {
+    getAllRoles() {
         return this.connection.query("SELECT * FROM role")
     }
 }
