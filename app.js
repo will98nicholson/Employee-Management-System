@@ -3,9 +3,11 @@ const db = require('./db/connection');
 const Department = require('./db/departmentcontroller');
 const Role = require('./db/rolecontroller');
 const Employee = require('./db/employeecontroller');
+
 db.Department = new Department();
 db.Employee = new Employee();
 db.Role = new Role();
+
 const questions = [{
     type: 'list',
     name: 'choice',
@@ -18,8 +20,8 @@ async function start() {
         console.log(answers);
         switch (answers.choice) {
             case 'show all employees':
-                const results = await db.Employee.getAllEmployees()
-                start();
+                // const results = await db.Employee.getAllEmployees()
+                // start();
                 break
             case 'show all departments':
                 const results = await db.Department.getAllDepts()
@@ -27,8 +29,8 @@ async function start() {
                 start();
                 break
             case 'show all roles':
-                const results = await db.Role.getAllRoles();
-                start();
+            // const results = await db.Role.getAllRoles();
+            // start();
 
             default:
             //end app
