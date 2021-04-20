@@ -73,7 +73,10 @@ async function start() {
                     })
                 }
                 const deptAdd = await prompt(roleQuestion(choicesARR));
-                console.log(deptAdd);
+                const addRole = await db.Role.addRole(deptAdd.title, deptAdd.salary, deptAdd.dept)
+
+                console.log(addRole);
+
 
             default:
             //end app
