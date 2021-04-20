@@ -12,8 +12,14 @@ const questions = [{
     type: 'list',
     name: 'choice',
     message: 'What do you want to do?',
-    choices: ['show all employees', 'show all departments', 'show all roles', 'end app']
+    choices: ['show all employees', 'show all departments', 'add a department', 'show all roles', 'add a role', 'end app']
 }];
+const deptQuestion = [{
+    type: 'input',
+    name: 'name',
+    message: 'what department would you like to add?',
+}]
+
 async function start() {
     try {
         const answers = await prompt(questions)
@@ -25,8 +31,15 @@ async function start() {
                 start();
                 break
             case 'show all departments':
-                const results = await db.Department.getAllDepts()
+                const results = await db.Department.getAllDepts();
                 console.table(results)
+                start();
+                break
+            case 'add a department':
+                const deptAnswers = await prompt(deptQuestion)
+                const deptResult = await db.Department.addDept(deptAnswers.name)
+                console.log(deptResult);
+                console.log("added successfully");
                 start();
                 break
             case 'show all roles':
@@ -39,7 +52,7 @@ async function start() {
 
         }
     } catch (err) {
-
+        console.log(err);
     }
 }
 
