@@ -20,7 +20,8 @@ async function start() {
         console.log(answers);
         switch (answers.choice) {
             case 'show all employees':
-                const empResults = await db.Employee.getAllEmployees()
+                const empResults = await db.Employee.getAllEmployees();
+                console.table(empResults)
                 start();
                 break
             case 'show all departments':
@@ -30,6 +31,7 @@ async function start() {
                 break
             case 'show all roles':
                 const roleResults = await db.Role.getAllRoles();
+                console.table(roleResults)
                 start();
 
             default:
