@@ -12,7 +12,7 @@ const questions = [{
     type: 'list',
     name: 'choice',
     message: 'What do you want to do?',
-    choices: ['show all employees', 'add an employee', 'show all departments', 'add a department', 'show all roles', 'add new role', 'end app']
+    choices: ['show all employees', 'add an employee', 'show all departments', 'add a department', 'show all roles', 'add new role', 'update employee role', 'end app']
 }];
 const deptQuestion = [{
     type: 'input',
@@ -36,15 +36,15 @@ const roleQuestion = (depts) => [{
     choices: depts,
 
 },]
-const empQuestion = (roles) => [
+const empQuestion = (roles, emps) => [
     {
         type: 'input',
-        name: 'firstname',
+        name: 'first_name',
         message: 'what is the first name of the employee?'
     },
     {
         type: 'input',
-        name: 'lastname',
+        name: 'last_name',
         message: 'what is the last name of the employee?'
     },
     {
@@ -55,9 +55,10 @@ const empQuestion = (roles) => [
 
     },
     {
-        type: 'input',
+        type: 'list',
         name: 'manager_id',
-        message: 'who is the manager of the employee?'
+        message: 'who is the manager of the employee?',
+        choices: emps,
     },]
 async function start() {
     try {
@@ -71,23 +72,26 @@ async function start() {
                 break
             case 'add an employee':
                 const roleChoices = await db.Role.getAllRoles();
-                const deptChoice = await db.Department.getAllDepts();
-                let choicesARR = [];
-                for (let i = 0; i < deptChoice.length; i++) {
-                    choicesARR.push({
-                        name: deptChoice[i].name,
-                        value: deptChoice[i].id
-                    })
-                }
                 let rolesARR = [];
                 for (let i = 0; i < roleChoices.length; i++) {
                     rolesARR.push({
-                        name: roleChoices[i].name,
+                        name: roleChoices[i].title,
                         value: roleChoices[i].id
                     })
                 }
-                const deptAddition = await prompt(empQuestion(choicesARR));
-                const addEmployee = await db.Employee.addEmployee(firstlast,)
+                const employeeResults = await db.Employee.getAllEmployees();
+                let empsARR = [];
+                for (let i = 0; i < employeeResults.length; i++) {
+                    empsARR.push({
+                        name: employeeResults[i].last_name,
+                        value: employeeResults[i].id
+                    })
+                }
+
+                const rolesAdd = await prompt(empQuestion(rolesARR, empsARR));
+                // const managerAdd = await prompt(empQuestion(empsARR));
+                const addEmployee = await db.Employee.addEmployee(rolesAdd.first_name, rolesAdd.last_name, rolesAdd.title, rolesAdd.manager_id)
+
 
             case 'show all departments':
                 const results = await db.Department.getAllDepts();
