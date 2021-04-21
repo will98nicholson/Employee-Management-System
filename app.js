@@ -60,6 +60,22 @@ const empQuestion = (roles, emps) => [
         message: 'who is the manager of the employee?',
         choices: emps,
     },]
+const empUpdate = (roles, emps) => [
+
+    {
+        type: 'list',
+        name: 'last_name',
+        message: 'which employee would you like to update?',
+        choices: emps,
+    },
+    {
+        type: 'list',
+        name: 'title',
+        message: 'what will be the new role for this employee?',
+        choices: roles,
+
+    },
+]
 async function start() {
     try {
         const answers = await prompt(questions)
@@ -90,7 +106,9 @@ async function start() {
 
                 const rolesAdd = await prompt(empQuestion(rolesARR, empsARR));
                 // const managerAdd = await prompt(empQuestion(empsARR));
-                const addEmployee = await db.Employee.addEmployee(rolesAdd.first_name, rolesAdd.last_name, rolesAdd.title, rolesAdd.manager_id)
+                const addEmployee = await db.Employee.addEmployee(rolesAdd.first_name, rolesAdd.last_name, rolesAdd.title, rolesAdd.manager_id);
+                start();
+                break
 
 
             case 'show all departments':
@@ -124,6 +142,24 @@ async function start() {
 
                 console.log(addRole);
                 start();
+                break
+            case 'update employee role':
+                const empSelect = await db.Employee.getAllEmployees();
+                for (let i = 0; i < empSelect.length; i++) {
+                    empsARR.push({
+                        name: empSelect[i].last_name,
+                        value: empSelect[i].id
+                    })
+                }
+                const roleSelect = await db.Role.getAllRoles();
+                let rolesARR = [];
+                for (let i = 0; i < roleSelect.length; i++) {
+                    rolesARR.push({
+                        name: roleSelect[i].title,
+                        value: roleSelect[i].id
+                    })
+                }
+
 
 
             default:
