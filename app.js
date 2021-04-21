@@ -12,7 +12,7 @@ const questions = [{
     type: 'list',
     name: 'choice',
     message: 'What do you want to do?',
-    choices: ['show all employees', 'show all departments', 'add a department', 'show all roles', 'add new role', 'end app']
+    choices: ['show all employees', 'add an employee', 'show all departments', 'add a department', 'show all roles', 'add new role', 'end app']
 }];
 const deptQuestion = [{
     type: 'input',
@@ -34,6 +34,24 @@ const roleQuestion = (depts) => [{
     name: 'dept',
     message: 'what is the department of this role?',
     choices: depts,
+
+},]
+const empQuestion = (depts, roles) => [{
+    type: 'input',
+    name: 'name',
+    message: 'what is the name of the employee?'
+},
+{
+    type: 'choices',
+    name: 'dept',
+    message: 'what department will they be working in?',
+    choices: depts,
+},
+{
+    type: 'list',
+    name: 'title',
+    message: 'what is the title of the job (role) they will have?',
+    choices: roles,
 
 },]
 async function start() {
@@ -76,6 +94,7 @@ async function start() {
                 const addRole = await db.Role.addRole(deptAdd.title, deptAdd.salary, deptAdd.dept)
 
                 console.log(addRole);
+                start();
 
 
             default:
