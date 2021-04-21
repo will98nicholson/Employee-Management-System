@@ -13,6 +13,6 @@ const connection = mysql.createConnection({
     password: '1234',
     database: 'employee_db',
 });
-connection.query = util.promisify(connection.query)
+connection.query = util.promisify(connection.query);
 
 module.exports = connection;

@@ -36,24 +36,29 @@ const roleQuestion = (depts) => [{
     choices: depts,
 
 },]
-const empQuestion = (depts, roles) => [{
-    type: 'input',
-    name: 'name',
-    message: 'what is the name of the employee?'
-},
-{
-    type: 'choices',
-    name: 'dept',
-    message: 'what department will they be working in?',
-    choices: depts,
-},
-{
-    type: 'list',
-    name: 'title',
-    message: 'what is the title of the job (role) they will have?',
-    choices: roles,
+const empQuestion = (roles) => [
+    {
+        type: 'input',
+        name: 'firstname',
+        message: 'what is the first name of the employee?'
+    },
+    {
+        type: 'input',
+        name: 'lastname',
+        message: 'what is the last name of the employee?'
+    },
+    {
+        type: 'list',
+        name: 'title',
+        message: 'what is the title of the job (role) they will have?',
+        choices: roles,
 
-},]
+    },
+    {
+        type: 'input',
+        name: 'manager_id',
+        message: 'who is the manager of the employee?'
+    },]
 async function start() {
     try {
         const answers = await prompt(questions)
@@ -64,6 +69,26 @@ async function start() {
                 console.table(empResults)
                 start();
                 break
+            case 'add an employee':
+                const roleChoices = await db.Role.getAllRoles();
+                const deptChoice = await db.Department.getAllDepts();
+                let choicesARR = [];
+                for (let i = 0; i < deptChoice.length; i++) {
+                    choicesARR.push({
+                        name: deptChoice[i].name,
+                        value: deptChoice[i].id
+                    })
+                }
+                let rolesARR = [];
+                for (let i = 0; i < roleChoices.length; i++) {
+                    rolesARR.push({
+                        name: roleChoices[i].name,
+                        value: roleChoices[i].id
+                    })
+                }
+                const deptAddition = await prompt(empQuestion(choicesARR));
+                const addEmployee = await db.Employee.addEmployee(firstlast,)
+
             case 'show all departments':
                 const results = await db.Department.getAllDepts();
                 console.table(results)
