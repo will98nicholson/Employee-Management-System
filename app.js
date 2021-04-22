@@ -60,7 +60,7 @@ const empQuestion = (roles, emps) => [
         message: 'who is the manager of the employee?',
         choices: emps,
     },]
-const empUpdate = (roles, emps) => [
+const empUpdate = (emps, roles) => [
 
     {
         type: 'list',
@@ -145,20 +145,31 @@ async function start() {
                 break
             case 'update employee role':
                 const empSelect = await db.Employee.getAllEmployees();
+                let empARR = [];
                 for (let i = 0; i < empSelect.length; i++) {
-                    empsARR.push({
+                    empARR.push({
                         name: empSelect[i].last_name,
                         value: empSelect[i].id
-                    })
-                }
+                    });
+                    // {
+                    //     name: empSelect[i].first_name,
+                    //     value: empSelect[i].id
+                };
+
                 const roleSelect = await db.Role.getAllRoles();
-                let rolesARR = [];
+                let roleARR = [];
                 for (let i = 0; i < roleSelect.length; i++) {
-                    rolesARR.push({
+                    roleARR.push({
                         name: roleSelect[i].title,
                         value: roleSelect[i].id
                     })
                 }
+                const updateRole = await prompt(empUpdate(empARR, roleARR));
+                // console.log(updateRole);
+                const updateEmployee = await db.Employee.updateEmployee(updateRole.title, updateRole.last_name);
+                console.log(updateEmployee);
+                break
+
 
 
 

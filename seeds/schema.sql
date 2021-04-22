@@ -12,8 +12,5 @@ create table employee(
     role_id INT,
     manager_id INT);
 
-insert into employee(
-    first_name, 
-    last_name
-) values ('Will', 'Nicholson')
+
 
