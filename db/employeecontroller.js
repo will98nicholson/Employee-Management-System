@@ -9,9 +9,9 @@ class Employee {
     addEmployee(first_name, last_name, title, manager) {
         return this.connection.query("insert into employee(first_name, last_name, role_id, manager_id) values (?,?,?,?)", [first_name, last_name, title, manager]);
     }
-    updateEmployee(title, last_name) {
+    updateEmployee(title, employeeID) {
         // return this.connection.query("UPDATE employee(last_name, role_id) values(?, ?)", [last_name, title]);
-        return this.connection.query("UPDATE employee SET role_id=? WHERE last_name=?", [title, last_name]);
+        return this.connection.query("UPDATE employee SET role_id=? WHERE employee.id=?", [title, employeeID]);
     }
 }
 module.exports = Employee;
