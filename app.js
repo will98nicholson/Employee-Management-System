@@ -167,7 +167,8 @@ async function start() {
                 const updateRole = await prompt(empUpdate(empARR, roleARR));
                 console.log(updateRole);
                 const updateEmployee = await db.Employee.updateEmployee(updateRole.title, updateRole.last_name);
-                console.log(updateEmployee);
+                console.table(updateEmployee);
+                start();
                 break
 
 
