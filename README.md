@@ -20,6 +20,6 @@ Node.js, Javascript, Inquirer, SQL, Sequelize
 
 ### Links
 Github Repository:
-[githubRepository]  https://will98nicholson.github.io/Employee-Management/
+[githubRepository]  https://github.com/will98nicholson/Employee-Management-System
 Video Walkthough:
 [videoWalkthough]  https://drive.google.com/file/d/1LbxxA6MpmnnQ3Bn6v7CfkwS2VKv6a7Wm/view
