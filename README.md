@@ -3,9 +3,9 @@
 
 ## Description
 
-This is a program that can input, organaize, and update informattion on a company. When prompted with a main 
+This is a program that can input, organaize, and update information on a company. When prompted with a main 
 menu, you can choose to 'add' a new employee/role/department, or 'update' any of the above. You can also choose
-to 'show' any of the aformentioned and an organized table of the respective input will return.
+to 'show' any of the aforementioned and an organized table of the respective input will return.
 
 ### Technology Used
 
